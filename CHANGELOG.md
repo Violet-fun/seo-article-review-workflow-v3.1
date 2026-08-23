@@ -1,5 +1,18 @@
 # Changelog
 
+## v3.2.0 - 2026-08-22
+
+### Added
+
+- Scene-fit hard gate: every visual maps a real reader, task, and setting or product state, with a section-specific visual purpose.
+- Native-aspect-ratio placement gate: source and displayed ratios must match within 1%; silent cropping and inherited incompatible frames are prohibited.
+- Per-asset rendered-page review for scene relevance, proportions, subject visibility, captions, clipping, and collisions.
+
+### Changed
+
+- Visual map and final checklist now record source/display ratios, scene fit, crop decisions, and rendered-page verification.
+- Revision regression requires re-checking every placed image when any image defect is reported.
+
 ## v3.1.0 - 2026-08-21
 
 ### Added

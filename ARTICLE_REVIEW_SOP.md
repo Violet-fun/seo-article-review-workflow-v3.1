@@ -1,4 +1,4 @@
-# Article Review SOP v3.1
+# Article Review SOP v3.2
 
 ## 0. Delivery Contract and Mode Detection
 
@@ -88,6 +88,8 @@ Plan actual visuals before final composition. Every main content section needs a
 
 Preserve effective original visuals. New visuals should complement a missing task, not replace useful assets merely for stylistic uniformity.
 
+For every new visual, map the real reader, task, and setting or product state first. Produce a credible scene or recognizable workflow that answers that section's need; do not use a white-background text card, generic arrow diagram, or repeated composition as a substitute. Record source dimensions and the intended native ratio in the visual map. When embedding, size proportionally and never inherit an incompatible legacy image frame. A crop needs a documented reason and must retain the mapped subject.
+
 ## 8. EEAT and Evidence Review
 
 Check that claims are proportionate and sourced where needed.
@@ -110,5 +112,7 @@ If source effective-information retention drops below 70%, stop and require an e
 ## 10. Final QA and Delivery
 
 Run the complete checklist in `standards/DELIVERY_ACCEPTANCE_STANDARD.md`.
+
+Render the final document to images and inspect every page containing a visual. For each asset, verify scene fit, source/display ratio within 1%, visible subject, caption adjacency, and absence of clipping, stretching, overlap, or collision. If rendering cannot be performed, label the package **Structurally verified - visual QA pending**; it is not publish-ready.
 
 Do not label an output “final” or “publish-ready” if it is an outline, a review memo, a visual plan, a document with placeholders, or an artifact that has not passed the available visual/layout checks.

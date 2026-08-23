@@ -24,5 +24,8 @@
 - [ ] Keyword distribution and naturalness
 - [ ] Product fit, placement, evidence, limitations, CTA
 - [ ] Image count, Alt, captions, asset files, insertion points
+- [ ] Each image depicts its mapped real reader/task/setting or product state; no generic text-card substitute
+- [ ] Source and displayed image ratios match within 1%; any crop is documented and preserves the subject
 - [ ] Links, sources, comments/tracked changes
-- [ ] Render/layout review or explicit visual-QA-pending label
+- [ ] Render/layout review of every image page: scene fit, proportions, subject visibility, caption adjacency, no clipping/stretch/overlap
+- [ ] If rendering is unavailable, delivery is labeled "Structurally verified - visual QA pending" (not publish-ready)

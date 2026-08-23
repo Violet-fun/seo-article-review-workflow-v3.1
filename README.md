@@ -1,8 +1,8 @@
-# SEO Article Review Workflow v3.1
+# SEO Article Review Workflow v3.2
 
 GitHub-ready workflow for improving an existing SEO article without destroying its useful content, product-conversion value, evidence, visuals, or publication readiness.
 
-## What changed in v3.1
+## What changed in v3.2
 
 - Adds a mandatory content-preservation audit before any drafting.
 - Treats ordinary "review" and "optimize" requests as **Optimization Mode**, not rewrite requests.
@@ -10,6 +10,7 @@ GitHub-ready workflow for improving an existing SEO article without destroying i
 - Defines actual visual-asset delivery, not image plans or placeholders.
 - Adds section-level keyword mapping and delivery acceptance gates.
 - Blocks final delivery when the output is only an outline, a review memo, an image plan, or an unrendered/unverified artifact.
+- Requires scene-relevant, aesthetically intentional visuals and native-aspect-ratio placement, verified on rendered pages.
 
 ## Repository map
 
@@ -34,7 +35,7 @@ GitHub-ready workflow for improving an existing SEO article without destroying i
 2. Complete the source asset inventory in `templates/content_asset_audit.md`.
 3. Select **Optimization Mode** unless the user explicitly requests a rewrite.
 4. Build the keyword and product maps before editing prose.
-5. Create or source actual visual assets, then embed and package them.
+5. Map the reader/task/setting for every visual, then create or source a scene-relevant asset and record its native ratio.
 6. Run every acceptance check in `standards/DELIVERY_ACCEPTANCE_STANDARD.md`.
 
 ## Versioning

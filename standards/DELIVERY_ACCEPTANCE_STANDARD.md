@@ -1,4 +1,4 @@
-# Delivery Acceptance Standard v3.1
+# Delivery Acceptance Standard v3.2
 
 ## Publication-ready means all required deliverables exist
 
@@ -43,6 +43,8 @@ Review notes, image plans, and audit documents are supplementary only. They neve
 - Required visual count and section coverage are met.
 - All images are real assets, embedded, and independently packaged.
 - Every image has filename, Alt, caption, and insertion point.
+- Every image has a mapped reader/task/setting or product state; the final scene is relevant, intentional, and not a text-heavy substitute for a scenario.
+- Each placed image retains its source aspect ratio within 1%; every crop is documented and approved by the visual map.
 - Original useful visuals are preserved or replaced only with documented equivalence.
 - Rendered pages show no clipping, overlap, stretch, broken tables, orphaned captions, or blank-page artifacts.
 
@@ -52,6 +54,7 @@ Review notes, image plans, and audit documents are supplementary only. They neve
 - Links and source citations work.
 - Tables have readable geometry and repeat headers where appropriate.
 - Document has passed render-to-image review where the environment supports it.
+- Render review includes every page containing an image, with explicit checks for scene fit, native proportions, subject visibility, caption adjacency, and page collisions.
 - If rendering is unavailable, mark the result **Structurally verified - visual QA pending**. Do not call it publish-ready.
 
 ## Revision regression gate
@@ -62,3 +65,4 @@ When responding to user feedback:
 2. Re-run all affected checks, including preservation and delivery gates.
 3. Confirm that the repair did not remove original assets, product conversion, images, tables, or keyword coverage.
 4. Deliver the final article first; supporting notes are secondary.
+5. For an image defect, re-check every placed image rather than only the image the user identified.

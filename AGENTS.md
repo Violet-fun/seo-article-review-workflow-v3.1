@@ -1,4 +1,4 @@
-# SEO Article Review Workflow v3.1
+# SEO Article Review Workflow v3.2
 
 ## Mission
 
@@ -26,6 +26,7 @@ Rewrite Mode sequence: `Research -> Structure -> Draft`.
 8. Same-level headings must share the same logic dimension and grammar pattern.
 9. Keyword optimization must be section-aware and natural. Never insert keyword-dump sentences or search-query lists.
 10. Do not call a deliverable publication-ready until it passes the delivery acceptance gates.
+11. A visual must depict the section's real user situation or decision, not merely restate the prose in a text card. Preserve each placed asset's native aspect ratio; never stretch it to fit a legacy document frame.
 
 ## Minimum stage gates
 
