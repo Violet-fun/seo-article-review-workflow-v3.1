@@ -1,4 +1,4 @@
-# Content Preservation Standard v3.1
+# Content Preservation Standard v3.4
 
 ## Core rule
 
@@ -36,8 +36,8 @@ Default-protect the following unless a documented reason says otherwise:
 ## Retention thresholds
 
 - Count the source article before editing.
-- Default expectation: retain at least 70% of effective information value.
-- If prose word count drops by more than 30%, document why and recheck lost source assets.
+- Default expectation: retain 80–90% of effective information value.
+- If prose word count drops by more than 20%, document why and recheck every lost source asset. Any retention below 80% needs explicit user authorization.
 - If the revised article is materially shorter because it removed evidence, tables, cases, workflows, or product conversion rather than true duplication, it fails.
 - A user may explicitly authorize a short version; record that authorization in the delivery contract.
 
