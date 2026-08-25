@@ -1,6 +1,12 @@
-# SEO Article Review Workflow v3.6.0
+# SEO Article Review Workflow v3.7.0
 
 GitHub-ready workflow for improving an existing SEO article without destroying its useful content, product-conversion value, evidence, visuals, or publication readiness.
+
+## What changed in v3.7.0
+
+- Adds `START_HERE.md`, a mandatory bootstrap that loads the complete execution contract before every article review.
+- Requires a machine-readable `workflow_bootstrap` record; preflight rejects a release if its version, required-rule list, or pre-edit completion status is missing.
+- Makes the minimal instruction self-sufficient across computers: the user provides files and the short command, while the workflow owns the fixed standards.
 
 ## What changed in v3.6.0
 
@@ -69,7 +75,7 @@ GitHub-ready workflow for improving an existing SEO article without destroying i
 
 ## How to use
 
-1. Read `AGENTS.md` and `ARTICLE_REVIEW_SOP.md`.
+1. Execute `START_HERE.md` in full.
 2. Complete the source asset inventory in `templates/content_asset_audit.md`.
 3. Select **Optimization Mode** unless the user explicitly requests a rewrite.
 4. Build the keyword and product maps before editing prose.
@@ -84,10 +90,10 @@ Before changing or releasing the workflow itself, run `python scripts/test_produ
 For a standard complete review, the user only needs to provide the source article and keyword workbook, then send:
 
 ```text
-请使用 SEO Article Review Workflow v3.6.0 对附件文章进行完整回审，默认采用 Optimization Mode，保留原文有效信息，不得改写成提纲或缩水稿。
+请使用 SEO Article Review Workflow v3.7.0 对附件文章进行完整回审，默认采用 Optimization Mode，保留原文有效信息，不得改写成提纲或缩水稿。
 ```
 
-The workflow then automatically executes and delivers the full v3.6.0 contract: source-asset and content-economy audits; SERP/intent research; structure and heading-role maps; keyword, product, source, and visual maps; clean and yellow-marked DOCX copies; embedded and standalone images for every required H2; preflight; rendered-page/human QA; and final gate records.
+The workflow then automatically executes and delivers the full v3.7.0 contract: source-asset and content-economy audits; SERP/intent research; structure and heading-role maps; keyword, product, source, and visual maps; clean and yellow-marked DOCX copies; embedded and standalone images for every required H2; preflight; rendered-page/human QA; and final gate records.
 
 If a reference article is attached, it is automatically treated as a **quality benchmark only**, never as a copyable article structure. The new article's structure must be derived from its own SERP and intent research.
 

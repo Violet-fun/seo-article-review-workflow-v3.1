@@ -23,6 +23,32 @@ def norm(value: str) -> str:
     return re.sub(r"\s+", " ", str(value or "")).strip().casefold()
 
 
+BOOTSTRAP_REQUIRED_FILES = {
+    "START_HERE.md", "README.md", "CHANGELOG.md", "AGENTS.md", "ARTICLE_REVIEW_SOP.md",
+    "PRODUCT_RECOMMENDATION_STANDARD.md", "KEYWORD_OPTIMIZATION_STANDARD.md",
+    "standards/CONTENT_PRESERVATION_STANDARD.md", "standards/VISUAL_ASSET_STANDARD.md",
+    "standards/DELIVERY_ACCEPTANCE_STANDARD.md", "templates/delivery_contract.md",
+    "templates/content_asset_audit.md", "templates/serp_structure_evidence.md",
+    "templates/product_portfolio_map.md", "templates/keyword_map.md", "templates/visual_asset_map.md",
+    "templates/release_evidence.json", "templates/final_human_qa.md", "templates/gate_ledger.md",
+}
+
+
+def workflow_bootstrap_failures(cfg, evidence):
+    """Require the workflow's fixed instruction set to be recorded before editing."""
+    bootstrap = evidence.get("workflow_bootstrap") or {}
+    failures = []
+    if bootstrap.get("workflow_version") != cfg.get("workflow_version"):
+        failures.append("Workflow bootstrap version does not match manifest workflow_version")
+    if bootstrap.get("completed_before_editing") is not True:
+        failures.append("Workflow bootstrap was not recorded as completed before editing")
+    read_files = set(bootstrap.get("required_files_read") or [])
+    missing = sorted(BOOTSTRAP_REQUIRED_FILES - read_files)
+    if missing:
+        failures.append("Workflow bootstrap is missing required files: " + "; ".join(missing))
+    return failures
+
+
 def doc_paragraphs(doc):
     yield from doc.paragraphs
     for table in doc.tables:
@@ -322,6 +348,7 @@ def evidence_failures(cfg, top20, clean_text, yellow, asset_dir: Path, required_
     failures = []
     if evidence.get("release_id") != cfg.get("release_id"):
         failures.append("Release evidence ID does not match manifest release_id")
+    failures.extend(workflow_bootstrap_failures(cfg, evidence))
     if not evidence.get("source_audit_complete"):
         failures.append("Source asset audit is not complete in release evidence")
     if not evidence.get("structure_plan_complete"):
@@ -470,7 +497,7 @@ def main():
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
     cfg = json.loads(args.manifest.read_text(encoding="utf-8"))
-    required_manifest_fields = ["release_id", "source_docx", "clean_docx", "marked_docx", "keyword_xlsx", "asset_dir", "release_dir", "release_evidence_json", "expected_release_files", "required_keyword_roles", "required_record_files", "visual_scope"]
+    required_manifest_fields = ["release_id", "workflow_version", "source_docx", "clean_docx", "marked_docx", "keyword_xlsx", "asset_dir", "release_dir", "release_evidence_json", "expected_release_files", "required_keyword_roles", "required_record_files", "visual_scope"]
     missing_manifest_fields = [field for field in required_manifest_fields if not nonempty(cfg.get(field))]
     if missing_manifest_fields:
         result = {

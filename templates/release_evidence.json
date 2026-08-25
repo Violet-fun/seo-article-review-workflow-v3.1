@@ -1,5 +1,18 @@
 {
   "release_id": "",
+  "workflow_bootstrap": {
+    "workflow_version": "v3.7.0",
+    "completed_before_editing": true,
+    "required_files_read": [
+      "START_HERE.md", "README.md", "CHANGELOG.md", "AGENTS.md", "ARTICLE_REVIEW_SOP.md",
+      "PRODUCT_RECOMMENDATION_STANDARD.md", "KEYWORD_OPTIMIZATION_STANDARD.md",
+      "standards/CONTENT_PRESERVATION_STANDARD.md", "standards/VISUAL_ASSET_STANDARD.md",
+      "standards/DELIVERY_ACCEPTANCE_STANDARD.md", "templates/delivery_contract.md",
+      "templates/content_asset_audit.md", "templates/serp_structure_evidence.md",
+      "templates/product_portfolio_map.md", "templates/keyword_map.md", "templates/visual_asset_map.md",
+      "templates/release_evidence.json", "templates/final_human_qa.md", "templates/gate_ledger.md"
+    ]
+  },
   "source_retention_pct": 0,
   "source_audit_complete": false,
   "source_assets_total": 0,
