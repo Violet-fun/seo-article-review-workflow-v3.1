@@ -1,5 +1,15 @@
 # Changelog
 
+## v3.7.0 - 2026-08-25
+
+### Added
+
+- `START_HERE.md` mandatory bootstrap and machine-readable bootstrap-release evidence.
+
+### Fixed
+
+- The fixed execution contract no longer depends on the user resending long instructions on a new computer or task.
+
 ## v3.6.0 - 2026-08-25
 
 ### Added

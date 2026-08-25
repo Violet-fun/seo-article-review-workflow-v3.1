@@ -3,7 +3,7 @@
 Run with the bundled workflow Python:
     python scripts/test_product_route_regression.py
 """
-from review_preflight import core_conversion_ultra_tips_failures
+from review_preflight import BOOTSTRAP_REQUIRED_FILES, core_conversion_ultra_tips_failures, workflow_bootstrap_failures
 
 
 NAME = "HitPaw FotorPea"
@@ -74,6 +74,11 @@ def run():
     blocked = direct_row(primary_task_support="no_truthful_route", blocked_decision="No lawful route.", approved_alternative_request="Request an approved alternative.")
     failures = core_conversion_ultra_tips_failures(CFG, [blocked], "", [])
     assert any("route is blocked pending approved alternative" in item for item in failures)
+
+    bootstrap_cfg = {"workflow_version": "v3.7.0"}
+    good_bootstrap = {"workflow_bootstrap": {"workflow_version": "v3.7.0", "completed_before_editing": True, "required_files_read": sorted(BOOTSTRAP_REQUIRED_FILES)}}
+    assert workflow_bootstrap_failures(bootstrap_cfg, good_bootstrap) == []
+    assert workflow_bootstrap_failures(bootstrap_cfg, {"workflow_bootstrap": {}})
     print("product-route regression tests: PASS")
 
 

@@ -1,4 +1,4 @@
-# SEO Article Review Workflow v3.5
+# SEO Article Review Workflow v3.7.0
 
 ## Mission
 
@@ -53,10 +53,11 @@ Rewrite Mode sequence: `Research -> Structure -> Draft`.
 35. When a named core conversion product does not support the article's primary task but has a verified lawful adjacent route, it must receive a Boundary-sensitive core conversion `Ultra Tips` H2, not an exclusion-only or adjacent-only mention. The required module contains the truthful boundary, three best-for scenarios, not-for route, four-to-six steps, current status, safe CTA, one mapped product visual, and two further decision touchpoints. A missing module is a release-blocking product failure. If no truthful adjacent route exists, block and escalate; do not invent functionality.
 36. Determine core-conversion status from the current brief and the retained project product policy before source audit. A user does not need to repeat an already-established project core product in every request. Record every such product in the delivery contract and `core_conversion_products` manifest field; if no policy or brief identifies one, explicitly record `none` rather than silently assuming a product is non-core.
 37. Classify each named core conversion product against the exact primary task using a current official feature URL before drafting. `direct_supported` requires a direct-solution heading, article-visible official URL, scenarios, workflow, limitation, and CTA; it forbids any `Ultra Tips`, adjacent, or “does not support the primary task” route for that product in both article and release evidence. `adjacent_authorized_route` alone permits Ultra Tips. `no_truthful_route` blocks release pending an approved alternative. Re-run this route check immediately before delivery to catch new launches and stale templates.
+38. Before opening or editing an article, execute `START_HERE.md` in full and record the completed `workflow_bootstrap` evidence. A release without that record fails preflight. The user does not need to repeat the fixed execution contract in each request.
 
 ## Minimum stage gates
 
-`Delivery Contract -> Source Audit + Content-Economy Audit -> SERP & Intent Research -> Structure Plan + Heading-Role Map -> Product Portfolio + Core-Conversion Route Check + Availability Check -> Keyword Map -> Visual Map -> Edit -> EEAT + Source De-duplication -> Regression -> Render QA -> Release`
+`Bootstrap -> Delivery Contract -> Source Audit + Content-Economy Audit -> SERP & Intent Research -> Structure Plan + Heading-Role Map -> Product Portfolio + Core-Conversion Route Check + Availability Check -> Keyword Map -> Visual Map -> Edit -> EEAT + Source De-duplication -> Regression -> Render QA -> Release`
 
 ## Release lock
 

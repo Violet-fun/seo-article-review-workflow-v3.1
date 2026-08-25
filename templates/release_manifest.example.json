@@ -1,5 +1,6 @@
 {
   "release_id": "SEO-REV-YYYY-MM-DD-TOPIC",
+  "workflow_version": "v3.7.0",
   "source_docx": "C:/source/article.docx",
   "clean_docx": "C:/release/articles/topic-clean-publication.docx",
   "marked_docx": "C:/release/articles/topic-marked-review.docx",
