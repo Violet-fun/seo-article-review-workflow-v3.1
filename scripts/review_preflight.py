@@ -17,36 +17,30 @@ import zipfile
 from docx import Document
 from docx.enum.text import WD_COLOR_INDEX
 from openpyxl import load_workbook
+from delivery_integrity import check_render, docx_content, read_json, local_file, check_contract
+from workflow_state import validate as validate_state
 
 
 def norm(value: str) -> str:
     return re.sub(r"\s+", " ", str(value or "")).strip().casefold()
 
 
-BOOTSTRAP_REQUIRED_FILES = {
-    "START_HERE.md", "README.md", "CHANGELOG.md", "AGENTS.md", "ARTICLE_REVIEW_SOP.md",
-    "PRODUCT_RECOMMENDATION_STANDARD.md", "KEYWORD_OPTIMIZATION_STANDARD.md",
-    "standards/CONTENT_PRESERVATION_STANDARD.md", "standards/VISUAL_ASSET_STANDARD.md",
-    "standards/DELIVERY_ACCEPTANCE_STANDARD.md", "templates/delivery_contract.md",
-    "templates/content_asset_audit.md", "templates/serp_structure_evidence.md",
-    "templates/product_portfolio_map.md", "templates/keyword_map.md", "templates/visual_asset_map.md",
-    "templates/release_evidence.json", "templates/final_human_qa.md", "templates/gate_ledger.md",
-}
+BOOTSTRAP_REQUIRED_FILES = set(read_json(Path(__file__).resolve().parents[1] / "workflow.json")["bootstrap_files"])
 
 
 def workflow_bootstrap_failures(cfg, evidence):
-    """Require the workflow's fixed instruction set to be recorded before editing."""
-    bootstrap = evidence.get("workflow_bootstrap") or {}
-    failures = []
-    if bootstrap.get("workflow_version") != cfg.get("workflow_version"):
-        failures.append("Workflow bootstrap version does not match manifest workflow_version")
-    if bootstrap.get("completed_before_editing") is not True:
-        failures.append("Workflow bootstrap was not recorded as completed before editing")
-    read_files = set(bootstrap.get("required_files_read") or [])
-    missing = sorted(BOOTSTRAP_REQUIRED_FILES - read_files)
-    if missing:
-        failures.append("Workflow bootstrap is missing required files: " + "; ".join(missing))
-    return failures
+    """Verify actual loaded-file hashes. A prefilled assertion is not evidence."""
+    try:
+        root = Path(cfg['workflow_root']).resolve()
+        if root != Path(__file__).resolve().parents[1]:
+            return ['workflow_root must identify the actual installed workflow running this validator']
+        state_path = Path(cfg['workflow_state']).resolve()
+        config = read_json(root/'workflow.json')
+        if config['version'] != cfg.get('workflow_version'):
+            return ['Workflow version differs from the canonical workflow.json']
+        return validate_state(read_json(state_path), config, root, state_path.parent, complete=False)
+    except (KeyError, ValueError, TypeError, OSError) as exc:
+        return ['Missing/invalid generated workflow bootstrap: '+str(exc)]
 
 
 def doc_paragraphs(doc):
@@ -455,23 +449,31 @@ def evidence_failures(cfg, top20, clean_text, yellow, asset_dir: Path, required_
         if count < 1 or count > 2:
             failures.append(f"Section '{section}' has {count} visual-use rows; contract requires one or two")
 
-    human_qa = evidence.get("human_qa") or {}
+    human_qa = evidence.get("editorial_qa") or {}
     qa_fields = [
         "content_integrity", "keyword_editorial_quality", "product_suitability",
         "visual_relevance", "visual_aesthetics", "sources_checked",
         "document_hygiene", "release_purity",
     ]
     if not nonempty(human_qa.get("reviewer_name")):
-        failures.append("Final human QA has no named reviewer")
+        failures.append("Final editorial QA has no named reviewer")
+    if human_qa.get('reviewer_type') not in {'ai', 'human'}:
+        failures.append('Editorial QA must accurately declare reviewer_type: ai or human')
+    if cfg.get('human_approval_required') is True:
+        approval = evidence.get('human_approval') or {}
+        if approval.get('reviewer_type') != 'human' or approval.get('result') != 'pass' or not approval.get('reviewer_name') or not approval.get('approval_reference'):
+            failures.append('Required real human approval is missing')
+    elif cfg.get('human_approval_required') is not False:
+        failures.append('Declare human_approval_required explicitly from the task/project contract')
     try:
         date.fromisoformat(str(human_qa.get("review_date", "")))
     except ValueError:
-        failures.append("Final human QA date is missing or invalid")
+        failures.append("Final editorial QA date is missing or invalid")
     blocked_qa = [field for field in qa_fields if norm(human_qa.get(field)) != "pass"]
     if blocked_qa:
-        failures.append("Final human QA has unresolved criteria: " + ", ".join(blocked_qa))
+        failures.append("Final editorial QA has unresolved criteria: " + ", ".join(blocked_qa))
     if cfg.get("render_status") == "PASS" and not human_qa.get("rendered_pages_reviewed"):
-        failures.append("Manifest claims render PASS but final human QA does not confirm rendered pages were reviewed")
+        failures.append("Manifest claims render PASS but final editorial QA does not confirm rendered pages were reviewed")
 
     if cfg.get("eeat_required", True) and not [source for source in evidence.get("eeat_sources_checked", []) if nonempty(source)]:
         failures.append("No EEAT/official sources were recorded")
@@ -497,6 +499,12 @@ def main():
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
     cfg = json.loads(args.manifest.read_text(encoding="utf-8"))
+    # Resolve config paths against the manifest rather than the caller's cwd.
+    manifest_root = args.manifest.resolve().parent
+    for field in ['source_docx','clean_docx','marked_docx','keyword_xlsx','asset_dir','release_dir','release_evidence_json','workflow_root','workflow_state']:
+        if cfg.get(field): cfg[field] = str((manifest_root / cfg[field]).resolve())
+    for field in ['required_record_files','supporting_files']:
+        if isinstance(cfg.get(field), list): cfg[field] = [str((manifest_root / x).resolve()) for x in cfg[field]]
     required_manifest_fields = ["release_id", "workflow_version", "source_docx", "clean_docx", "marked_docx", "keyword_xlsx", "asset_dir", "release_dir", "release_evidence_json", "expected_release_files", "required_keyword_roles", "required_record_files", "visual_scope"]
     missing_manifest_fields = [field for field in required_manifest_fields if not nonempty(cfg.get(field))]
     if missing_manifest_fields:
@@ -539,12 +547,23 @@ def main():
     source = Document(source_path)
     clean = Document(clean_path)
     marked = Document(marked_path)
-    clean_text = "\n".join(p.text for p in doc_paragraphs(clean))
-    marked_text = "\n".join(p.text for p in doc_paragraphs(marked))
+    clean_data = docx_content(clean_path)
+    marked_data = docx_content(marked_path)
+    clean_text = clean_data['text']
+    marked_text = marked_data['text']
     sheet, terms = canonical_terms(Path(cfg["keyword_xlsx"]), cfg.get("keyword_sheet"))
     top20 = terms[:20]
     exceptions = {norm(item["keyword"]): item for item in cfg.get("top20_exceptions", [])}
     errors, checks = [], {}
+    try:
+        state_path=Path(cfg['workflow_state'])
+        config=read_json(Path(cfg['workflow_root'])/'workflow.json')
+        state=read_json(state_path)
+        errors.extend(validate_state(state,config,Path(cfg['workflow_root']),state_path.parent))
+        errors.extend(check_contract(cfg,state_path.parent,config['contract_fields']))
+        if state.get('run_id') != cfg.get('release_id'): errors.append('Workflow state belongs to another release')
+    except (KeyError,ValueError,OSError,TypeError) as exc:
+        errors.append('Workflow stage evidence invalid: '+str(exc))
 
     h1_count = sum(1 for p in doc_paragraphs(clean) if p.style and p.style.name == "Heading 1")
     checks["one_h1"] = h1_count == 1
@@ -560,9 +579,11 @@ def main():
     checks["marked_clean_text_identical"] = norm(clean_text) == norm(marked_text)
     if not checks["marked_clean_text_identical"]:
         errors.append("Marked and clean text differ after normalization")
-    checks["marked_clean_media_identical"] = media_count(clean_path) == media_count(marked_path)
+    checks["marked_clean_media_identical"] = media_count(clean_path) == media_count(marked_path) and clean_data['media'] == marked_data['media']
     if not checks["marked_clean_media_identical"]:
         errors.append("Marked and clean media counts differ")
+    if clean_data['links'] != marked_data['links']:
+        errors.append('Marked and clean hyperlink targets differ')
     errors.extend(document_hygiene_failures(clean_path, clean_copy=True))
     errors.extend(document_hygiene_failures(marked_path, clean_copy=False))
 
@@ -617,6 +638,10 @@ def main():
         required_sections = [heading for heading in h2_headings if heading not in exception_names]
     elif cfg.get("visual_scope") == "NAMED_SECTIONS":
         required_sections = cfg.get("required_visual_sections", [])
+        if not required_sections and cfg.get('visuals_not_required') is not True:
+            errors.append('Named visual scope needs sections or an explicit no-visual task contract')
+        if set(required_sections) - set(h2_headings):
+            errors.append('Named visual scope contains a non-existent H2')
     else:
         errors.append("visual_scope must be ALL_H2 or NAMED_SECTIONS")
         required_sections = cfg.get("required_visual_sections", [])
@@ -675,6 +700,13 @@ def main():
         errors.append("Missing named required records: " + "; ".join(missing_records))
 
     render_status = cfg.get("render_status")
+    if render_status == 'PASS':
+        for name, docx in [('clean',clean_path),('marked',marked_path)]:
+            try:
+                report_path=local_file(Path(cfg['release_dir']),cfg.get('render_reports',{}).get(name))
+                errors.extend(name+': '+e for e in check_render(read_json(report_path),Path(cfg['release_dir']),docx))
+            except (ValueError,OSError,TypeError) as exc:
+                errors.append(name+' render evidence: '+str(exc))
     checks["render_status_recorded"] = render_status in {"PASS", "STRUCTURALLY_VERIFIED_VISUAL_QA_PENDING"}
     if not checks["render_status_recorded"]:
         errors.append("Render status must be PASS or STRUCTURALLY_VERIFIED_VISUAL_QA_PENDING")

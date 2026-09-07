@@ -10,7 +10,7 @@
 - [ ] Visual asset manifest
 - [ ] Dated SERP and original-structure evidence
 - [ ] Machine-readable release evidence
-- [ ] Completed final human QA record
+- [ ] Completed final editorial QA record with truthful reviewer type; real human approval additionally recorded when the task/project requires it
 - [ ] Exact release-file manifest
 
 ## Regression checks

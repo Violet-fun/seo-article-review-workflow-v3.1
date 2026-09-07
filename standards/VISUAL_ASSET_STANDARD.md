@@ -1,5 +1,7 @@
 # Visual Asset Standard v3.5
 
+Default visual scope is NAMED_SECTIONS, chosen by reader benefit and frozen in the contract; Sources does not require an image by default. Explicit user requests for ALL_H2 retain all-H2 coverage.
+
 ## Core rule
 
 Actual visual assets are part of the article deliverable. A placeholder, image plan, filename suggestion, or generic collage is not a delivered image.

@@ -1,4 +1,4 @@
-# Final Human QA — Release Lock
+# Final Editorial QA — Release Lock
 
 Release ID:  
 Reviewer name:  
@@ -33,3 +33,9 @@ Evidence folder / page captures:
 - [ ] BLOCKED — one or more rows are BLOCKED; final/publication-ready labels are prohibited.
 
 Reviewer signature / approval:  
+
+Reviewer type (ai / human):
+Human approval required by task/project (yes / no):
+Actual human approval reference when required:
+
+Filename is retained for compatibility. AI review must not be described as human review.

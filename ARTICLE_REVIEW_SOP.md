@@ -1,4 +1,6 @@
-# Article Review SOP v3.5
+# Article Review SOP v3.8.0
+
+Default visual scope is NAMED_SECTIONS, chosen by reader benefit and frozen in the contract; Sources does not require an image by default. Explicit user requests for ALL_H2 retain all-H2 coverage.
 
 ## 0. Delivery Contract and Mode Detection
 
@@ -10,7 +12,7 @@ Before reviewing content, record:
 - Required product(s), product category, conversion purpose, CTA, internal links, or evidence requirements.
 - Optimization Mode or Rewrite Mode.
 - Release ID, source article path/version, canonical keyword-sheet name, and required priority-keyword rule.
-- The exact list of sections that require visuals. If the request says “every section,” list **every H2 after the final structure is set, including Sources**. An exception must name the heading, reader-value reason, and approver; no implied exception exists.
+- The exact list of sections that require visuals. If the request says “every section,” list **every H2 after the final structure is set, including Sources when ALL_H2 is explicitly requested**. An exception must name the heading, reader-value reason, and approver; no implied exception exists.
 - The required review-markup behavior. Default: yellow highlights only in the marked copy; clean copy has no yellow highlights; the two copies must have identical normalized text.
 - Whether the clean article must include a CMS-ready SEO metadata block: SEO title, meta description, URL slug, primary keyword, and secondary-keyword cluster. Default: yes when the article is delivered as a Word handoff.
 - The reader persona, intended device/context, preferred visual style, prohibited visual styles, and the concrete rule for one or two visual uses per required section.
@@ -140,7 +142,7 @@ If source effective-information retention drops below 80%, stop and require expl
 
 Create the clean copy first. Build the marked copy from it with a run-safe highlighter. Do not rebuild a whole paragraph from `paragraph.text`, because this can duplicate or destroy hyperlinks, drawings, fields, and formatting. Compare clean text to marked text after stripping highlights; the normalized text and media relationship counts must match exactly.
 
-## 9.6 Final human QA gate
+## 9.6 Final editorial QA gate
 
 Complete `templates/final_human_qa.md` after all automated checks and after rendered-page review. The reviewer must inspect the entire clean and marked article, not a sample page. A PASS requires evidence for:
 

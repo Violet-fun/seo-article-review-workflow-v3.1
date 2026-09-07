@@ -1,17 +1,8 @@
 {
   "release_id": "",
   "workflow_bootstrap": {
-    "workflow_version": "v3.7.0",
-    "completed_before_editing": true,
-    "required_files_read": [
-      "START_HERE.md", "README.md", "CHANGELOG.md", "AGENTS.md", "ARTICLE_REVIEW_SOP.md",
-      "PRODUCT_RECOMMENDATION_STANDARD.md", "KEYWORD_OPTIMIZATION_STANDARD.md",
-      "standards/CONTENT_PRESERVATION_STANDARD.md", "standards/VISUAL_ASSET_STANDARD.md",
-      "standards/DELIVERY_ACCEPTANCE_STANDARD.md", "templates/delivery_contract.md",
-      "templates/content_asset_audit.md", "templates/serp_structure_evidence.md",
-      "templates/product_portfolio_map.md", "templates/keyword_map.md", "templates/visual_asset_map.md",
-      "templates/release_evidence.json", "templates/final_human_qa.md", "templates/gate_ledger.md"
-    ]
+    "state_path": "workflow-state.json",
+    "status": "pending"
   },
   "source_retention_pct": 0,
   "source_audit_complete": false,
@@ -27,14 +18,31 @@
     "final_word_count": 0,
     "expansion_justification": "",
     "duplicate_decision_rows": [
-      {"decision": "", "primary_owner": "", "duplicate_disposition": "", "reader_value_after_edit": ""}
+      {
+        "decision": "",
+        "primary_owner": "",
+        "duplicate_disposition": "",
+        "reader_value_after_edit": ""
+      }
     ]
   },
   "heading_rows": [
-    {"heading": "", "level": "H1", "role": "primary_keyword", "keyword_or_semantic_cluster": "", "naturalness": "PASS", "action_parent_rationale": ""}
+    {
+      "heading": "",
+      "level": "H1",
+      "role": "primary_keyword",
+      "keyword_or_semantic_cluster": "",
+      "naturalness": "PENDING",
+      "action_parent_rationale": ""
+    }
   ],
   "source_records": [
-    {"claim_scope": "", "official_url": "", "verified_date": "YYYY-MM-DD", "final_location": ""}
+    {
+      "claim_scope": "",
+      "official_url": "",
+      "verified_date": "YYYY-MM-DD",
+      "final_location": ""
+    }
   ],
   "keyword_rows": [
     {
@@ -55,9 +63,17 @@
       "primary_task_support": "direct_supported / adjacent_authorized_route / no_truthful_route",
       "role": "",
       "direct_solution_heading": "Required only when primary_task_support is direct_supported; omit otherwise.",
-      "direct_workflow_steps": ["Required only when primary_task_support is direct_supported; omit otherwise."],
-      "best_for_scenarios": ["", "", ""],
-      "not_best_for": [""],
+      "direct_workflow_steps": [
+        "Required only when primary_task_support is direct_supported; omit otherwise."
+      ],
+      "best_for_scenarios": [
+        "",
+        "",
+        ""
+      ],
+      "not_best_for": [
+        ""
+      ],
       "differentiated_value": "",
       "exact_location": "",
       "official_evidence_url": "",
@@ -71,13 +87,27 @@
         "boundary_disclosure": "",
         "supported_authorized_route": "",
         "not_for": "",
-        "workflow_steps": ["", "", "", ""],
+        "workflow_steps": [
+          "",
+          "",
+          "",
+          ""
+        ],
         "current_status_statement": "",
         "cta_text": "",
         "touchpoints": [
-          {"role": "decision_context", "exact_location": ""},
-          {"role": "ultra_tips_owner", "exact_location": ""},
-          {"role": "reassurance", "exact_location": ""}
+          {
+            "role": "decision_context",
+            "exact_location": ""
+          },
+          {
+            "role": "ultra_tips_owner",
+            "exact_location": ""
+          },
+          {
+            "role": "reassurance",
+            "exact_location": ""
+          }
         ],
         "visual_asset_filename": ""
       }
@@ -95,12 +125,14 @@
       "alt_text": "",
       "caption": "",
       "exact_insertion_point": "",
-      "rendered_qa": "PASS"
+      "rendered_qa": "PENDING"
     }
   ],
-  "eeat_sources_checked": [""],
+  "eeat_sources_checked": [
+    ""
+  ],
   "release_directory_pure": false,
-  "human_qa": {
+  "editorial_qa": {
     "reviewer_name": "",
     "review_date": "YYYY-MM-DD",
     "content_integrity": "BLOCKED",
@@ -111,6 +143,7 @@
     "sources_checked": "BLOCKED",
     "document_hygiene": "BLOCKED",
     "release_purity": "BLOCKED",
-    "rendered_pages_reviewed": false
+    "rendered_pages_reviewed": false,
+    "reviewer_type": ""
   }
 }

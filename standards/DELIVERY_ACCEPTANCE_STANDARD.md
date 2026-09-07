@@ -1,4 +1,8 @@
-# Delivery Acceptance Standard v3.5
+# Delivery Acceptance Standard
+
+Execution version and reviewer policy: workflow.json and EXECUTION.md.
+
+Default visual scope is NAMED_SECTIONS, chosen by reader benefit and frozen in the contract; Sources does not require an image by default. Explicit user requests for ALL_H2 retain all-H2 coverage.
 
 ## Publication-ready means all required deliverables exist
 
@@ -17,7 +21,7 @@ Review notes, image plans, and audit documents are supplementary only. They neve
 
 Do not hand off a final release when any of the following is missing or failed: source audit, dated SERP/structure evidence, canonical keyword source, Top-20 keyword disposition, marked/clean text-integrity comparison, product map, per-section visual-map PASS rows, independent assets, release-directory purity, preflight report, or render evidence/fallback label. A reviewer must fix the defect or label the release blocked; “draft ready for review” is not a substitute for gate status.
 
-The release must also include a complete final human QA record and an exact manifest of every file in the release directory. A named reviewer must mark every required criterion PASS. No criterion may be marked “pass with issues.”
+The release must also include a complete final editorial QA record and an exact manifest of every file in the release directory. A named reviewer must mark every required criterion PASS. No criterion may be marked “pass with issues.”
 
 ## Content acceptance
 
@@ -60,7 +64,7 @@ The release must also include a complete final human QA record and an exact mani
 - Required visual count and section coverage are met.
 - All images are real assets, embedded, and independently packaged.
 - Every image has filename, Alt, caption, and insertion point.
-- Every required section has one or two mapped visual uses when the contract requires this; when the contract says “every section,” required means every H2, including Sources unless an approved exception is recorded.
+- Every required section has one or two mapped visual uses when the contract requires this; when the contract says “every section,” required means every H2, including Sources when ALL_H2 is explicitly requested unless an approved exception is recorded.
 - Each visual use has an audience/scenario rationale, style/rights status, and distinct purpose; white text cards, generic arrows, decorative reuse, and invented branded interfaces do not qualify.
 - Original useful visuals are preserved or replaced only with documented equivalence.
 - Rendered pages show no clipping, overlap, stretch, broken tables, orphaned captions, or blank-page artifacts.

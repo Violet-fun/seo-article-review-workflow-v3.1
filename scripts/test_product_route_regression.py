@@ -77,7 +77,7 @@ def run():
 
     bootstrap_cfg = {"workflow_version": "v3.7.0"}
     good_bootstrap = {"workflow_bootstrap": {"workflow_version": "v3.7.0", "completed_before_editing": True, "required_files_read": sorted(BOOTSTRAP_REQUIRED_FILES)}}
-    assert workflow_bootstrap_failures(bootstrap_cfg, good_bootstrap) == []
+    assert workflow_bootstrap_failures(bootstrap_cfg, good_bootstrap), "Prefilled legacy bootstrap must not pass"
     assert workflow_bootstrap_failures(bootstrap_cfg, {"workflow_bootstrap": {}})
     print("product-route regression tests: PASS")
 
